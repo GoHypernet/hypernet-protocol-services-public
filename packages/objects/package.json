@@ -1,0 +1,40 @@
+{
+  "name": "@hypernetlabs/hypernet.id-objects",
+  "version": "0.0.1",
+  "description": "Objects and types shared by Hypernet.ID",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/objects#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Hypernet Labs",
+    "Blockchain",
+    "KYC"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "test": "echo \"No tests specified yet\" && exit 0"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/common-objects": "^0.0.4",
+    "@hypernetlabs/objects": "^0.3.20",
+    "ts-brand": "^0.0.2"
+  }
+}

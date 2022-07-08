@@ -1,0 +1,45 @@
+{
+  "name": "@hypernetlabs/hypernet.id-shared-components",
+  "version": "0.0.1",
+  "description": "Shared components for hypernet.id projects",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/master/packages/core#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Blockchain",
+    "Hypernet",
+    "SDK"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "alias": "tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "prepublish": "yarn build",
+    "test": "echo \"No tests specified yet\" && exit 0"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/objects": "^0.3.20",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "formik": "^2.2.9",
+    "formik-material-ui": "^3.0.1",
+    "just-debounce-it": "^3.0.1",
+    "moment": "2.29.1",
+    "yup": "^0.32.9"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "4.12.3",
+    "@material-ui/icons": "4.11.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}

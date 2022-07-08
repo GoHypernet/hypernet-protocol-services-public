@@ -1,0 +1,27 @@
+{
+	"extends": "../../tsconfig.build.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": "./src/"
+	},
+	"references": [
+		{
+			"path": "../authenticationContracts"
+		},
+		{
+			"path": "../authorizationContracts"
+		},
+		{
+			"path": "../objects"
+		},
+		{
+			"path": "../security"
+		},
+		{
+			"path": "../utils"
+		}
+	],
+	"include": ["./src/**/*.ts"],
+	"exclude": ["node_modules"]
+}

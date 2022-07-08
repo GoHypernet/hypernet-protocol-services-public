@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("IPFS_DATABASE_URL")
+}
+
+model FileEntity {
+  id                 Bytes    @id @db.Binary(16)
+  upload_location_id Bytes    @db.Binary(16)
+  file_name          String   @db.Text
+  pinned             Boolean  @default(false)
+  cid                String?  @db.VarChar(128)
+  created_timestamp  DateTime @default(now())
+  updated_timestamp  DateTime @updatedAt
+
+  upload_location UploadLocationEntity @relation(fields: [upload_location_id], references: [id])
+
+  @@map("file_t")
+}
+
+model UploadLocationEntity {
+  id                  Bytes    @id @db.Binary(16)
+  location_identifier String   @db.VarChar(128)
+  google_bucket_name   String   @db.VarChar(128)
+  created_timestamp   DateTime @default(now())
+  updated_timestamp   DateTime @updatedAt
+  pin                 Boolean  @default(true)
+  public              Boolean  @default(false)
+  deleted             Boolean  @default(false)
+
+  FileEntity FileEntity[]
+  @@map("upload_location_t")
+}

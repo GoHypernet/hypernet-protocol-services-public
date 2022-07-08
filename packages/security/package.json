@@ -1,0 +1,53 @@
+{
+  "name": "@hypernetlabs/hypernet.id-security",
+  "version": "0.0.1",
+  "description": "Encapsulates a large variety of security best practices.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/security#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Hypernet.ID",
+    "Security"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "test": "yarn test:ci",
+    "test:ci": "jest --runInBand --coverage --passWithNoTests",
+    "test:watch": "jest --watch --color --detectOpenHandles"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-crypto-utils": "^0.0.12",
+    "@hypernetlabs/common-objects": "^0.0.4",
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/hypernet.id-authentication-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-utils": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20",
+    "@hypernetlabs/utils": "^0.5.4",
+    "bee-queue": "^1.4.0",
+    "inversify": "^5.1.1",
+    "moleculer": "^0.14.0",
+    "moleculer-ioc": "^0.0.7",
+    "moleculer-web": "^0.9.0",
+    "neverthrow": "^4.2.2",
+    "object-hash": "^2.2.0"
+  }
+}

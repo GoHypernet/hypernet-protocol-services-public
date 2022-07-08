@@ -1,0 +1,67 @@
+{
+  "name": "@hypernetlabs/hypernet.id-ipfs-service",
+  "version": "0.0.1",
+  "description": "IPFS pinning and publishing service for Hypernet.ID",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/ipfsService#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "IPFS",
+    "Hypernet.ID"
+  ],
+  "main": "dist/ipfs.service.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "yarn prisma-copy && tsc-alias",
+    "bootstrap": "yarn prisma-migrate-dev && yarn prisma-generate",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "prisma-copy": "cp -R src/prisma dist/",
+    "prisma-generate": "npx prisma generate && yarn prisma-copy",
+    "prisma-introspect": "npx prisma introspect",
+    "prisma-migrate-deploy": "npx prisma migrate deploy",
+    "prisma-migrate-dev": "npx prisma migrate dev",
+    "prisma-deploy": "npx prisma migrate deploy",
+    "prisma-push": "npx prisma db push",
+    "prisma-seed": "npx prisma db seed",
+    "test": "yarn test:ci",
+    "test:ci": "jest --runInBand --coverage --passWithNoTests",
+    "test:watch": "jest --watch --color --detectOpenHandles"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "types": "dist/ipfsService.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/hypernet.id-events": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-ipfs-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-utils": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-queues": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20",
+    "@hypernetlabs/utils": "^0.5.4",
+    "@google-cloud/pubsub": "^2.19.0",
+    "@google-cloud/storage": "^5.18.2",
+    "ipfs-http-client": "^55.0.0",
+    "@moleculer/channels": "^0.1.2",
+    "inversify": "^5.1.1",
+    "moleculer": "^0.14.17",
+    "moleculer-ioc": "^0.0.7",
+    "neverthrow": "^4.2.2",
+    "jszip": "^3.7.1"
+  }
+}

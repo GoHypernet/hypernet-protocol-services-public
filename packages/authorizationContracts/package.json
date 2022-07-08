@@ -1,0 +1,40 @@
+{
+  "name": "@hypernetlabs/hypernet.id-authorization-contracts",
+  "version": "0.0.1",
+  "description": "Contracts and repositories for the Authorization API",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/authorizationContracts#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Hypernet.ID",
+    "Contracts",
+    "Authorization"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-crypto-utils": "^0.0.12",
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/hypernet.id-authentication-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20"
+  }
+}

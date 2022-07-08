@@ -1,0 +1,33 @@
+{
+	"extends": "../../tsconfig.build.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": "./src/"
+	},
+	"references": [
+		{
+			"path": "../ethereumChainBase"
+		},
+		{
+			"path": "../events"
+		},
+		{
+			"path": "../objects"
+		},
+		{
+			"path": "../security"
+		},
+		{
+			"path": "../utils"
+		},
+		{
+			"path": "../chainContracts"
+		},
+		{
+			"path": "../queues"
+		}
+	],
+	"include": ["./src/**/*.ts"],
+	"exclude": ["node_modules"]
+}

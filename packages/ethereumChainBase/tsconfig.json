@@ -1,0 +1,36 @@
+{
+	"extends": "../../tsconfig.build.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": "./src/"
+	},
+	"references": [
+		{
+			"path": "../authenticationContracts"
+		},
+		{
+			"path": "../events"
+		},
+		{
+			"path": "../objects"
+		},
+		{
+			"path": "../queues"
+		},
+		{
+			"path": "../utils"
+		},
+		{
+			"path": "../chainContracts"
+		},
+		{
+			"path": "../queues"
+		},
+		{
+			"path": "../security"
+		}
+	],
+	"include": ["./src/**/*.ts"],
+	"exclude": ["node_modules"]
+}

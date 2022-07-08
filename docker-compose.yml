@@ -1,0 +1,145 @@
+version: "3.3"
+
+services:
+  # api:
+  #   build:
+  #     context: .
+  #   image: hypernet2
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: api
+  #     PORT: 3000
+  #   depends_on:
+  #     - redis
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.api-gw.rule=PathPrefix(`/`)"
+  #     - "traefik.http.services.api-gw.loadbalancer.server.port=3000"
+  #   networks:
+  #     - internal
+
+  # greeter:
+  #   build:
+  #     context: .
+  #   image: hypernet2
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: greeter
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - internal
+
+  # products:
+  #   build:
+  #     context: .
+  #   image: hypernet2
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: products
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #   networks:
+  #     - internal
+
+  # mongo:
+  #   image: mongo:4
+  #   volumes:
+  #     - data:/data/db
+  #   networks:
+  #     - internal
+
+  combined:
+    image: hypernetlabs/hypernet.id-combined-server:local
+    env_file: docker-compose.env
+    depends_on:
+      - redis
+      - blockchain
+      - blockchain2
+      - shared-sql
+      - ipfs
+    networks:
+      - internal
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 3002:3002
+      - 3003:3003
+      - 3004:3004
+      - 3005:3005
+    volumes:
+      - ./packages/authenticationContracts/src:/app/packages/authenticationContracts/src
+      - ./packages/authenticationService/src:/app/packages/authenticationService/src
+      - ./packages/authorizationContracts/src:/app/packages/authorizationContracts/src
+      - ./packages/authorizationService/src:/app/packages/authorizationService/src
+      - ./packages/avalancheService/src:/app/packages/avalancheService/src
+      - ./packages/chainContracts/src:/app/packages/chainContracts/src
+      - ./packages/combined/src:/app/packages/combined/src
+      - ./packages/ethereumChainBase/src:/app/packages/ethereumChainBase/src
+      - ./packages/events/src:/app/packages/events/src
+      - ./packages/fujiService/src:/app/packages/fujiService/src
+      - ./packages/ipfsContracts/src:/app/packages/ipfsContracts/src
+      - ./packages/ipfsService/src:/app/packages/ipfsService/src
+      - ./packages/mumbaiService/src:/app/packages/mumbaiService/src
+      - ./packages/objects/src:/app/packages/objects/src
+      - ./packages/polygonService/src:/app/packages/polygonService/src
+      - ./packages/queues/src:/app/packages/queues/src
+      - ./packages/rinkebyService/src:/app/packages/rinkebyService/src
+      - ./packages/security/src:/app/packages/security/src
+      - ./packages/utils/src:/app/packages/utils/src
+      - ./credentials:/app/credentials
+      - ./downloads:/app/downloads
+    command: yarn dev
+
+  redis:
+    image: redis:alpine
+    networks:
+      - internal
+    ports:
+      - 6379:6379
+
+  blockchain:
+    image: hypernetlabs/eth-provider:local
+    ports:
+      - 8545:8545
+    environment:
+      MNEMONIC: "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat"
+      CHAIN_ID: "1337"
+      INCLUDE_HYPERTOKEN: 1
+    networks:
+      - internal
+
+  blockchain2:
+    image: hypernetlabs/eth-provider:local
+    ports:
+      - 8546:8545
+    environment:
+      MNEMONIC: "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat"
+      CHAIN_ID: "1338"
+      INCLUDE_HYPERTOKEN: 0
+    networks:
+      - internal
+
+  ipfs:
+    image: ipfs/go-ipfs:release
+    ports:
+      - "4021:4001" # Swarm
+      - "5021:5001" # Api
+      - "8088:8080" # Gateway
+    volumes:
+      - ./.ipfs/ipfs0:/data/ipfs
+      - ./.ipfs/export:/export
+      - ./scripts/start_ipfs:/start_ipfs
+    entrypoint: ["/sbin/tini", "--", "/start_ipfs"]
+    command: ["daemon", "--migrate=true", "--agent-version-suffix=docker"]
+    env_file: docker-compose.env
+    networks:
+      - internal
+      
+
+networks:
+  internal:
+
+volumes:
+  data:

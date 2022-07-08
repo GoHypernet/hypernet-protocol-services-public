@@ -1,0 +1,5 @@
+export enum EMintingStatus {
+	NOT_MINTED = "NOT_MINTED",
+	MINTING_REQUESTED = "MINTING_REQUESTED",
+	MINTED = "MINTED",
+}

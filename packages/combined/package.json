@@ -1,0 +1,79 @@
+{
+  "name": "@hypernetlabs/hypernet.id-combined-server",
+  "version": "0.0.1",
+  "description": "Development package for Hypernet Services. Builds a self-contained docker image of all services.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/core#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Blockchain",
+    "Hypernet",
+    "SDK",
+    "Connext",
+    "Vector",
+    "Ethereum"
+  ],
+  "main": "dist/moleculer.config.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "tsc-alias",
+    "alias:root": "cd ../.. && yarn alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && yarn alias:root",
+    "dev": "tsc-watch -b -w ../.. --onSuccess \"yarn start:dev\" --onCompilationStarted \"yarn kill-server\"",
+    "docker-push": "docker push hypernetlabs/hypernet.id-combined-server:local",
+    "dockerize": "docker build -t hypernetlabs/hypernet.id-combined-server:local -f Dockerfile --progress=plain ../..",
+    "kill-server": "kill -9 `cat ~/moleculerProcess.pid`",
+    "start": "yarn generate-credentials && ts-node ../../node_modules/moleculer/bin/moleculer-runner.js --config src/moleculer.config.ts src/services/*.service.ts",
+    "start:dev": "yarn alias:root && ts-node ../../node_modules/moleculer/bin/moleculer-runner.js --config src/moleculer.config.ts src/services/*.service.ts & echo $! > ~/moleculerProcess.pid",
+    "test": "jest --coverage",
+    "generate-credentials": "/app/scripts/generate_credentials.sh"
+  },
+  "jest": {
+    "coverageDirectory": "<rootDir>/coverage",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.spec.(ts|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/hypernet.id-authentication-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-authorization-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-avalanche-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-fuji-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-ipfs-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-mumbai-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-polygon-service": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-rinkeby-service": ">=0.0.1",
+    "@moleculer/channels": "^0.1.2",
+    "moleculer": "^0.14.17",
+    "dd-trace": "^2.3.1"
+  }
+}

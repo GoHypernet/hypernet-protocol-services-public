@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("AUTHORIZATION_DATABASE_URL")
+}
+
+model IdentityKeyEntity {
+  id                    Bytes    @id @db.Binary(16)
+  identity_id           Bytes    @db.Binary(16)
+  name                  String   @db.VarChar(128)
+  encryption_key_e      String   @db.VarChar(44)
+  encryption_key_iv     String   @db.VarChar(16)
+  created_timestamp     DateTime @default(now())
+  updated_timestamp     DateTime @updatedAt
+  deleted               Boolean  @default(false)
+
+  @@map("identity_key_t")
+}

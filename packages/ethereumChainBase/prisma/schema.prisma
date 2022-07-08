@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("CHAIN_DATABASE_URL")
+}
+
+model ChainTransactionEntity {
+  id                           Bytes                  @id @db.Binary(16)
+  chain_id                     Int                    @db.Int
+  transaction_hash             String                 @db.VarChar(66)
+  registry_address             String                 @db.VarChar(42)
+  max_fee_per_gas              String?                @db.VarChar(30)
+  max_priority_fee_per_gas     String?                @db.VarChar(30)
+  gas_limit                    String                 @db.VarChar(30)
+  block_number                 Int?                   @db.Int
+  value                        String                 @db.Text()
+  nonce                        Int                    @db.Int
+  status                       Int                    @db.Int
+  escrow_wallet_id             Bytes                  @db.Binary(16)
+  
+
+  created_timestamp DateTime @default(now())
+  updated_timestamp DateTime @updatedAt
+  deleted           Boolean  @default(false)
+  tokens            ChainTokenEntity[]
+
+  escrow_wallet EscrowWalletEntity? @relation(fields: [escrow_wallet_id], references: [id])
+
+  @@map("chain_transaction_t")
+}
+
+model ChainTokenEntity {
+  id                           Bytes                   @id @db.Binary(16)
+  chain_id                     Int                     @db.Int
+  registry_address             String                  @db.VarChar(42)
+  token_id                     BigInt                  @db.BigInt()
+  account_address              String                  @db.VarChar(42)
+  label                        String?                  @db.VarChar(128)
+  token_uri                    String?                 @db.Text()
+  token_type                   Int                     @db.Int
+  token_identifier             Bytes                  @db.Binary(16)
+  chain_transaction_id         Bytes?                  @db.Binary(16)
+  escrow_wallet_id             Bytes                   @db.Binary(16)
+
+  created_timestamp            DateTime                @default(now())
+  updated_timestamp            DateTime                @updatedAt
+  deleted                      Boolean                 @default(false)
+
+  chain_transaction ChainTransactionEntity? @relation(fields: [chain_transaction_id], references: [id])
+  escrow_wallet EscrowWalletEntity? @relation(fields: [escrow_wallet_id], references: [id])
+
+  @@map("chain_token_t")
+}
+
+model EscrowWalletEntity {
+  id                   Bytes                     @id @db.Binary(16)
+  account_address      String                    @db.VarChar(42)
+  chain_id             Int                       @db.Int
+  private_key_e        String                    @db.VarChar(128)
+  private_key_iv       String                    @db.VarChar(16)
+  encryption_key_version       Int            @db.Int
+  is_default           Boolean              @default(false)
+  created_timestamp    DateTime @default(now())
+  updated_timestamp    DateTime @updatedAt
+  deleted              Boolean  @default(false)
+
+  assets               EscrowWalletAssetEntity[]
+  tokens               ChainTokenEntity[]
+  transactions         ChainTransactionEntity[]
+
+  @@map("escrow_wallet_t")
+}
+
+model EscrowWalletAssetEntity {
+  id                Bytes              @id @db.Binary(16)
+  escrow_wallet_id  Bytes              @db.Binary(16)
+  block_number      Int                @db.Int
+  asset_address     String             @db.VarChar(26)
+  last_balance      String             @db.VarChar(26)
+  created_timestamp DateTime           @default(now())
+  updated_timestamp DateTime           @updatedAt
+  deleted           Boolean            @default(false)
+
+  escrow_wallet     EscrowWalletEntity @relation(fields: [escrow_wallet_id], references: [id])
+
+  @@map("escrow_wallet_asset_t")
+}

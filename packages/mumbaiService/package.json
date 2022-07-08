@@ -1,0 +1,68 @@
+{
+  "name": "@hypernetlabs/hypernet.id-mumbai-service",
+  "version": "0.0.1",
+  "description": "Service for communication with the Mumbai chain.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/core#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Blockchain",
+    "Hypernet",
+    "KYC",
+    "Hypernet Labs",
+    "Mumbai",
+    "Ethereum"
+  ],
+  "main": "dist/mumbai.service.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "dockerize": "",
+    "test": "yarn test:ci",
+    "test:ci": "jest --runInBand --coverage --passWithNoTests",
+    "test:watch": "jest --watch --color --detectOpenHandles",
+    "bootstrap": "yarn prisma-migrate-dev",
+    "prisma-introspect": "npx prisma introspect",
+    "prisma-migrate-deploy": "npx prisma migrate deploy",
+    "prisma-migrate-dev": "npx prisma migrate dev",
+    "prisma-push": "npx prisma db push",
+    "prisma-seed": "npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node seed.ts",
+    "schema": "../ethereumChainBase/prisma/schema.prisma"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/hypernet.id-chain-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-ethereum-chain-base": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-events": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-security": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-utils": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-queues": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20",
+    "@hypernetlabs/utils": "^0.5.4",
+    "@moleculer/channels": "^0.1.2",
+    "inversify": "^5.1.1",
+    "moleculer": "^0.14.17",
+    "moleculer-ioc": "^0.0.7",
+    "neverthrow": "^4.2.2"
+  }
+}

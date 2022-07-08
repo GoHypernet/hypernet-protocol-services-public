@@ -1,0 +1,66 @@
+{
+	"extends": "./tsconfig.build.json",
+	"files": [],
+	"references": [
+		{
+			"path": "packages/authenticationContracts"
+		},
+		{
+			"path": "packages/authenticationService"
+		},
+		{
+			"path": "packages/authorizationContracts"
+		},
+		{
+			"path": "packages/authorizationService"
+		},
+		{
+			"path": "packages/avalancheService"
+		},
+		{
+			"path": "packages/chainContracts"
+		},
+		{
+			"path": "packages/combined"
+		},
+		{
+			"path": "packages/ethereumChainBase"
+		},
+		{
+			"path": "packages/events"
+		},
+		{
+			"path": "packages/fujiService"
+		},
+		{
+			"path": "packages/ipfsContracts"
+		},
+		{
+			"path": "packages/ipfsService"
+		},
+		{
+			"path": "packages/mumbaiService"
+		},
+		{
+			"path": "packages/objects"
+		},
+		{
+			"path": "packages/polygonService"
+		},
+		{
+			"path": "packages/queues"
+		},
+		{
+			"path": "packages/rinkebyService"
+		},
+		{
+			"path": "packages/security"
+		},
+		{
+			"path": "packages/utils"
+		},
+		{
+			"path": "packages/sharedComponents"
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "@hypernetlabs/hypernet.id-ethereum-chain-base",
+  "version": "0.0.1",
+  "description": "Implementations of things needed for a base EthereumChainService (Ethereum compatible ChainService)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/ethereumChainBaseService#readme",
+  "author": "Hypernet Labs <succsss@hypernetlabs.io>",
+  "keywords": [
+    "Blockchain",
+    "Hypernet",
+    "KYC",
+    "Hypernet Labs",
+    "EtherumChainBase",
+    "Ethereum"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "yarn prisma-copy && tsc-alias",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "prisma-copy": "cp -R src/prisma dist/",
+    "prisma-generate": "npx prisma generate && yarn prisma-copy",
+    "test": "yarn test:ci",
+    "test:ci": "jest --runInBand --coverage --passWithNoTests",
+    "test:watch": "jest --watch --color --detectOpenHandles"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/common-crypto-utils": "^0.0.12",
+    "@hypernetlabs/governance-sdk": "^0.0.26",
+    "@hypernetlabs/common-objects": "^0.0.4",
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/hypernet.id-authentication-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-chain-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-security": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-events": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-utils": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-queues": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20",
+    "@hypernetlabs/utils": "^0.5.4",
+    "ethers": "5.5.3",
+    "fastest-validator-decorators": "^1.2.1",
+    "inversify": "^5.1.1",
+    "ioredis": "^4.14.1",
+    "lint-staged": ">=10",
+    "moleculer": "^0.14.17",
+    "moleculer-ioc": "^0.0.7",
+    "neverthrow": "^4.2.2",
+    "tsconfig-paths": "^3.11.0"
+  }
+}

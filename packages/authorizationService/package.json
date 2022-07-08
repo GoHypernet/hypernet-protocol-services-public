@@ -1,0 +1,64 @@
+{
+  "name": "@hypernetlabs/hypernet.id-authorization-service",
+  "version": "0.0.1",
+  "description": "Authorization service for Hypernet.ID",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoHypernet/hypernet-protocol-services.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GoHypernet/hypernet-protocol-services/issues"
+  },
+  "homepage": "https://github.com/GoHypernet/hypernet-protocol-services/tree/main/packages/authenticationService#readme",
+  "author": "Hypernet Labs <success@hypernetlabs.io>",
+  "keywords": [
+    "Authorization",
+    "Hypernet.ID"
+  ],
+  "main": "dist/authorization.service.js",
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "scripts": {
+    "alias": "yarn prisma-copy && tsc-alias",
+    "bootstrap": "yarn prisma-migrate-dev && yarn prisma-generate",
+    "build": "yarn clean && yarn compile",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "compile": "tsc --build && cd ../.. && yarn alias",
+    "prisma-copy": "cp -R src/prisma dist/",
+    "prisma-generate": "npx prisma generate && yarn prisma-copy",
+    "prisma-introspect": "npx prisma introspect",
+    "prisma-migrate-dev": "npx prisma migrate dev",
+    "prisma-deploy": "npx prisma migrate deploy",
+    "prisma-push": "npx prisma db push",
+    "prisma-seed": "npx prisma db seed",
+    "test": "yarn test:ci",
+    "test:ci": "jest --runInBand --coverage --passWithNoTests",
+    "test:watch": "jest --watch --color --detectOpenHandles"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "types": "dist/authorization.service.d.ts",
+  "dependencies": {
+    "@hypernetlabs/common-crypto-utils": "^0.0.12",
+    "@hypernetlabs/common-objects": "^0.0.4",
+    "@hypernetlabs/common-redis-provider": "^0.0.14",
+    "@hypernetlabs/hypernet-id-objects": "^0.0.5",
+    "@hypernetlabs/hypernet.id-authentication-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-authorization-contracts": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-objects": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-security": ">=0.0.1",
+    "@hypernetlabs/hypernet.id-utils": ">=0.0.1",
+    "@hypernetlabs/objects": "^0.3.20",
+    "@hypernetlabs/utils": "^0.5.4",
+    "@moleculer/channels": "^0.1.2",
+    "inversify": "^5.1.1",
+    "moleculer": "^0.14.17",
+    "moleculer-ioc": "^0.0.7",
+    "neverthrow": "^4.2.2"
+  }
+}
