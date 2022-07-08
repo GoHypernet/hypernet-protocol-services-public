@@ -24,10 +24,6 @@ There are two major tasks to bootstrap the project for running on your local: cr
 When you run the project on your local, we use a tool called Docker Compose to run it. Compose is an easy way to run multiple, interlinking containers. You can view the various containers that will run in the `docker-compose.yaml` file at the root. Once the project is started, you can easily view all the running containers via the Docker Desktop app; all the containers for ID will be in a group. The containers include:
 
 - The combined backend server "combined"
-- The Onboarding Portal "onboarding"
-- The User Portal "user-portal"
-- A Redis server "redis"
-- A shared MySQL 8 server, "shared-sql"
 - A local blockchain image, "blockchain"
 
 You should get familiar with either Docker Desktop or the docker command line, so that you know how to individually start, stop, restart, and kill these containers. This will greatly expedite your speed in development and debugging. Docker Compose has two major operations, `docker-compose up` and `docker-compose down`; the first will setup and run all the defined containers, and the latter will kill and dispose of the containers. The `down` command is quite destructive, as all your containers will need to be rebuilt from scratch. This is particularly problematic for the SQL server, as it maintains state; `docker-compose down` will wipe out that state. It is usually better to just stop things individually if you need to.
